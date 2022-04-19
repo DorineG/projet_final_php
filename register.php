@@ -1,7 +1,7 @@
 <?php
-echo "<pre>";
-print_r($_POST);
-echo "</pre>";
+//echo "<pre>";
+//print_r($_POST);
+//echo "</pre>";
 
 require 'recaptchaValid.php';
 
@@ -92,14 +92,14 @@ if(
         if(isset($errors)){
             foreach($errors as $error){
             echo '<div class="alert alert-danger" role="alert">'
-            . $error .
+            . htmlspecialchars($error) .
         '</div>';
         }
         }
 
         if(isset($success)){
             echo '<div class="alert alert-success" role="alert">'
-            . $success .
+            . htmlspecialchars($success) .
         '</div>';
         }else{
         ?>

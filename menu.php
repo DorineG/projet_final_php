@@ -13,15 +13,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="listfruits.php">Liste des Fruits</a>
                 </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="register.php">Inscription</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.php">Connexion</a>
-                    </li>
-
-                            </ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="register.php">Inscription</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.php">Connexion</a>
+                </li>
+            </ul>
 
             <!-- Formulaire de recherche en haut à droite -->
             <form class="d-flex" method="GET" action="search.php">
