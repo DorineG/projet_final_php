@@ -1,0 +1,139 @@
+
+Projet final PHP procédural
+
+Lien de la DEMO du projet : https://codexweb.fr/demo/php/projet-final/
+
+
+
+Règles à respecter :
+
+    - Utiliser GIT pour versionner le projet sur Github en publique (donner le lien à votre formateur préféré). Pensez à faire un commit à chaque étape terminée du projet.
+    - Bien faire les exercices dans l'ordre de l'énoncé.
+    - Intégrer et utiliser Bootstrap.
+    - Les mots de passe ne doivent pas être stockés directement : c'est leur empreinte cryptographique qui doit l'être.
+    - Les pages de connexion et d'inscription ne doivent pas être accessibles si l'utilisateur est déjà connecté.
+    - Les pages de déconnexion, mon profil et ajouter un fruit ne doivent pas être accessibles si l'utilisateur n'est pas connecté.
+    - Les boutons du menu ne doivent s'afficher qu'en fonction de l'état de connexion de l'utilisateur (si l'utilisateur n'est pas connecté, il faut afficher les boutons connexion et inscription, sinon il faut afficher les boutons déconnexion, mon profil et ajouter un fruit)
+
+
+Conseils sur le projet :
+
+    - Testez bien sur la demo en ligne le comportement attendu des formulaires pour tenter de respecter au mieux les énoncés.
+    - Ne perdez pas de temps sur le front, ce n'est pas le plus important.
+    - Plusieurs pages du site nécessitent de se connecter à la base de données : vous pouvez mettre la structure "try catch" dans un fichier et l'inclure.
+    - Toutes les pages du site ont le même menu : vous pouvez le mettre dans un fichier à part "menu.php" et l'inclure.
+    - La plupart des éléments du head HTML (charset, viewport, inclusion Bootstrap, etc...) ainsi que les fichiers JS qui sont inclus avant la fermeture de la balise "body" peuvent aussi être mis dans des fichiers à part ("header.php" et "jsfiles.php" par exemple) puis inclus dans les pages.
+    - Pensez à vous protéger contre les failles XSS.
+    - Pensez à vous protéger contre les injections SQL.
+
+
+----------------------------------------------------------------------
+
+
+1) Créer la base de données du projet
+
+    En vous aidant du MCD fourni, créer une nouvelle base de données "php_final_project" contenant les tables "fruits" et "users".
+
+    ATTENTION : ça ne se voit pas sur le schéma mais dans la table "fruits", les champs "description" et "picture_name" doivent pouvoir accepter des valeurs "NULL" (ces 2 champs seront optionnels dans le formulaire HTML)
+
+----------------------------------------------------------------------
+
+2) Page accueil
+
+    La première page du site ! Vous devez créer la structure qui vous resservira sur toutes les autres pages : structure HTML de base, inclusion de Bootstrap, inclusion de font-awesome, inclusion d'un fichier styles.css (pourrait servir plus tard), titre h1 .
+
+----------------------------------------------------------------------
+
+3) Page d'inscription
+
+    Sur cette page, créer un formulaire HTML POST avec les champs email, mot de passe, confirmation du mot de passe, pseudonyme et captcha.
+
+    Si le formulaire est envoyé, vérifier la validité des champs :
+        - email : doit être une adresse email valide
+        - mot de passe : doit être entre 8 et 4096 caractères (dont au moins 1 min, 1 maj, 1 chiffre et 1 caractère spécial)
+        - confirmation du mot de passe : doit être identique au mot de passe
+        - pseudonym : doit contenir entre 1 et 50 caractères
+        - recaptcha : doit être validé par Google
+
+    S'il y a des erreurs, les afficher au dessus du formulaire.
+
+    Si tout est valide, se connecter à la base de données et insérer un nouveau compte dans la table "users" avec les données du formulaire + message de succès + masquer le formulaire
+
+    BONUS 1 : Rajouter une vérification : si l'adresse email entrée dans le formulaire est déjà utilisée, afficher une erreur type "Cette adresse email est déjà prise !"
+
+    BONUS 2 : Afficher les erreurs en dessous du champ qui leur correspond au lieu de les afficher au dessus du formulaire (voir la version "bonus" avancée de la page d'inscription sur la demo en ligne)
+
+----------------------------------------------------------------------
+
+4) Page de connexion
+
+    Sur cette page, créer un formulaire HTML POST avec les champs email et mot de passe.
+
+    Si le formulaire est envoyé, vérifier la validité des champs :
+        - email : doit être une adresse email valide,
+        - mot de passe : doit être entre 8 et 4096 caractères (dont au moins 1 min, 1 maj, 1 chiffre et 1 caractère spécial)
+
+    S'il n'y a pas d'erreur, se connecter à la base de données et récupérer les infos du compte correspondant à l'email entrée dans le formulaire.
+    Si aucun compte n'est trouvé, afficher une erreur type "Ce compte n'existe pas !".
+    Si le compte existe bien, vérifier si le mot de passe est correct. Si le mot de passe n'est pas bon, afficher une erreur type "Le mot de passe n'est pas bon !"
+    Si le mot de passe est le bon, stocker les infos de l'utilisateur en session puis afficher un message de succès de connexion + masquer le formulaire.
+
+    BONUS 1 : Afficher les erreurs en dessous du champ qui leur correspond au lieu de les afficher au dessus du formulaire (voir la version "bonus" avancée de la page de connexion sur la demo en ligne)
+
+----------------------------------------------------------------------
+
+5) Page de déconnexion
+
+    Venir sur cette page doit provoquer la déconnexion de l'utilisateur en supprimant les données de son compte qui sont stockées dans la session.
+    Afficher un message de succès confirmant la déconnexion de l'utilisateur.
+
+----------------------------------------------------------------------
+
+6) Page de profil
+
+    Cette page doit afficher l'email, le pseudonyme ainsi que la date de création du compte de l'utilisateur qui est connecté.
+
+----------------------------------------------------------------------
+
+7) Page d'ajout d'un nouveau fruit
+
+    Sur cette page, créer un formulaire HTML POST avec les champs nom, pays d'origine, photo et description.
+
+    Le pays d'origine doit être une liste déroulante avec des pays à choisir dedans.
+
+    Les champs photo et description sont optionnels : le formulaire doit pouvoir être envoyé sans erreur si aucun fichier et/ou description n'a été rentré dans le formulaire.
+
+    Si le formulaire est envoyé, vérifier la validité des champs :
+        - nom : doit être entre 1 et 50 caractères
+        - pays d'origine : doit être un des pays présent dans la liste
+        - photo : si ce champ a été rempli, doit être un fichier de 5Mo maximum et de type jpg ou png uniquement
+        - description : si ce champ a été rempli, doit être entre 5 et 20 000 caractères
+
+    Si tout est valide, générer un nouveau nom aléatoire pour l'image uploadée, sauvegarder le nouveau fruit dans la base de données dans la table "fruits" puis sauvegarder l'image uploadée dans un dossier "images/uploads/".
+    S'il n'y a pas de description et/ou d'image, il faut envoyer "NULL" à la place dans la table.
+
+    Ne pas oublier d'afficher un message de succès + masquer le formulaire.
+
+----------------------------------------------------------------------
+
+8) Page qui affiche les fruits
+
+    Sur cette page, se connecter à la base de données puis récupérer toutes les infos de tous les fruits dans la base de données. Il faudra aussi récupérer le pseudonyme de l'auteur de chaque fruit, il faudra donc réaliser une jointure SQL pour ça.
+
+    S'il n'y a aucun fruit dans la table, afficher un message type "Aucun fruit à afficher actuellement !"
+
+    Sinon afficher tous les fruits dans une "card" Bootstrap (voir la demo en ligne).
+
+    Si un fruit n'a pas d'image, afficher l'image "no-photo.png" à la place.
+
+    Si un fruit n'a pas de description, afficher "Aucune description" en rouge à la place.
+
+----------------------------------------------------------------------
+
+9) Page permettant de rechercher un fruit
+
+    Ajouter un formulaire HTML GET dans le menu du haut qui pointera vers cette page.
+
+    Dans ce formulaire il faut un champ "q" qui contiendra une recherche.
+
+    Comme sur la page qui liste les fruits, il faut récupérer toutes les infos mais seulement des fruits dont le nom contiennent la recherche stockée dans la variable GET "q".
