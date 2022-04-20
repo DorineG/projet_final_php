@@ -7,13 +7,19 @@
         <div class="collapse navbar-collapse" id="top-navbar">
 
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
                 <li class="nav-item">
                     <a class="nav-link active" href="index.php">Accueil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="listfruits.php">Liste des Fruits</a>
                 </li>
-                
+
+                <?php
+
+                if(!isset($_SESSION['user'])){
+
+                    ?>
                     <li class="nav-item">
                         <a class="nav-link" href="register.php">Inscription</a>
                     </li>
@@ -21,7 +27,26 @@
                         <a class="nav-link" href="login.php">Connexion</a>
                     </li>
 
-                            </ul>
+                    <?php
+
+                } else {
+
+                    ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php">Déconnexion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profil.php">Mon profil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="addfruit.php">Ajouter un fruit</a>
+                    </li>
+                    <?php
+                }
+                ?>
+
+
+            </ul>
 
             <!-- Formulaire de recherche en haut à droite -->
             <form class="d-flex" method="GET" action="search.php">
